@@ -14,13 +14,12 @@
             <hr>
             <br>
 
-        </div>
-    </div>
-
+            
     <div id="g_id_onload"
-        data-client_id="201449086589-qpgtqec24mqjg1q01ja7otlmhc8e6u44.apps.googleusercontent.com"
-        data-auto_prompt="false"
-        data-callback="handleCredentialResponse">
+    data-client_id="201449086589-qpgtqec24mqjg1q01ja7otlmhc8e6u44.apps.googleusercontent.com"
+    data-auto_prompt="false"
+    data-callback="handleCredentialResponse">
+            
     </div>
     <div class="g_id_signin"
         data-type="standard"
@@ -34,47 +33,26 @@
     <button id="google_signout">
         Signout
     </button>
+    
+</div>
+    <div class="col-sm-6">
+        <h1>Login Manual</h1>
+        <hr>
+        <form class="d-grid">
+            <input type="text" name="correo" class="form-control mb-2" placeholder="Correo" >
+            <input type="text" name="password" class="form-control mb-2" placeholder="Password" >
+            <button type="submit" class="btn btn-primary"> Ingresar</button>
+        </form>
+
+
+    </div>
+
+    </div>
+
 
 
 
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script>
-        function handleCredentialResponse(response) {
-           // decodeJwtResponse() is a custom function defined by you
-           // to decode the credential response.
-
-           //google token: ID TOKEN
-            //console.log('id_token', response.credential)
-            const body = {id_token: response.credential}
-            //for heroku and localhost
-            fetch( window.location.hostname.includes('localhost')
-                ? 'http://localhost:8080/api/auth/google' : 'https://apicoffe.herokuapp.com/api/auth/google' , {
-                    
-                method: 'POST',
-                headers:{
-                    'Content-Type':'application/json'
-                },
-                body: JSON.stringify(body)
-            })
-                .then(resp => resp.json())
-                .then(resp=>{
-                    console.log(resp)
-                    localStorage.setItem('email',resp.usuario.correo)//guardando en LS para poder hacer signout mas adelante
-                })
-                .catch(console.warn)
-        }
-        //haciendo el log out de la cuenta
-        const button = document.getElementById('google_signout')
-        button.onclick = ()=>{
-            console.log(google.accounts.id)
-            google.accounts.id.disableAutoSelect()
-
-            google.accounts.id.revoke(localStorage.getItem('email'), done=>{
-                localStorage.clear()
-                location.reload()//para recargar el estado de nuestra pagina
-            })
-        }
-
-    </script>
+    <script src="./js/auth.js"> </script>
 </body>
 </html>
