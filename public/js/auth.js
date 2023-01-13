@@ -4,7 +4,7 @@ const miFormulario = document.querySelector('form');
 //Nuestro url destinado para el localhost y proximamente en railway
  //TODO: cambiar de heroku a railway
 const url =  (window.location.hostname.includes("localhost"))
-                ? "http://localhost:8080/api/auth"
+                ? "http://localhost:8080/api/auth/"
                 : "https://apicoffe.herokuapp.com/api/auth/"
 
 
