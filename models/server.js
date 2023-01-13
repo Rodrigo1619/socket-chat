@@ -73,11 +73,9 @@ class Server {
         this.app.use( this.paths.uploads, require('../routes/uploads'));
         
     }
-
     sockets(){
         this.io.on('connection', socketController)
     }
-
     listen() {
         //cambiamos el app por el server porque es el que tiene los sockets
         this.server.listen( this.port, () => {
@@ -86,8 +84,5 @@ class Server {
     }
 
 }
-
-
-
 
 module.exports = Server;
