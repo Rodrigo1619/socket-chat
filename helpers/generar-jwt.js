@@ -31,6 +31,7 @@ const comprobarJWT = async(token = '')=>{
         const {uid} = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
         const usuario = await Usuario.findById(uid)
 
+        //todo: siento que esos return null se pueden mejorar
         if(usuario){
             if(usuario.estado){
                 return usuario

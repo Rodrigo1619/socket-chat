@@ -1,3 +1,11 @@
+//Referencias HTML
+const txtUid      = document.querySelector("#txtUid");
+const txtMensajes = document.querySelector("#txtMensajes");
+const ulUsuarios  = document.querySelector("#ulUsuarios");
+const ulMensaje   = document.querySelector("#ulMensaje");
+const btnSalir    = document.querySelector("#btnSalir");
+
+
 
 
 //todo: se podria hacer en una variable global para no estar repitiendo este codigo 
@@ -5,6 +13,7 @@ const url =  (window.location.hostname.includes("localhost"))
                 ? "http://localhost:8080/api/auth/"
                 : "https://apicoffe.herokuapp.com/api/auth/"
 
+//Variables globales que se usaran mas adelante
 let usuario = null;
 let socket = null;
 
@@ -34,11 +43,31 @@ const validarJWT = async()=>{
 }
 
 const conectarSocket = async()=>{
-    const socket = io({
+    socket = io({
         'extraHeaders':{
             'x-token': localStorage.getItem('token')
         }
     });
+    //los sockets que vamos a estar escuchando
+    socket.on('connect', ()=>{
+        console.log('Sockect online')
+    })
+    socket.on('disconnect', ()=>{
+        console.log('socket offline')
+    })
+    socket.on('recibir-mensaje', ()=>{
+        //todo
+    })
+    socket.on('usuarios-activos', (payload)=>{
+        console.log(payload)
+    })
+    socket.on('mensaje-privado', ()=>{
+        //todo
+    })
+
+
+
+
 }
 
 const main = async()=>{

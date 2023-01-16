@@ -74,7 +74,8 @@ class Server {
         
     }
     sockets(){
-        this.io.on('connection', socketController)
+        //se realizo el cambio del que se especifica en el socketController
+        this.io.on('connection',(socket)=> socketController(socket, this.io))
     }
     listen() {
         //cambiamos el app por el server porque es el que tiene los sockets
