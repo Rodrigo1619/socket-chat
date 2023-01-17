@@ -21,6 +21,9 @@ const socketController = async(socket = new Socket(), io)=>{
     //ya no es broadcast porque ahora el io hace esa funcion por como se ha declarado y solo basta con el emit
     io.emit('usuarios-activos', chatMensajes.usuariosArr ) //mandamos los usuarios conectados pero los que metimos al arreglo de objetos
 
+    //Esto es para solo mandarselo a una persona la lista de los ultimos 10 mensajes cuando se conecte
+    socket.emit('recibir-mensajes', chatMensajes.ultimos10);
+
     //limpiando cuando un usuario se desconecta
     socket.on('disconnect', ()=>{
         chatMensajes.desconectarUsuario(usuario.id);

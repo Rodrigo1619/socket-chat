@@ -55,9 +55,7 @@ const conectarSocket = async()=>{
     socket.on('disconnect', ()=>{
         console.log('socket offline')
     })
-    socket.on('recibir-mensajes', (payload)=>{
-        console.log(payload)
-    })
+    socket.on('recibir-mensajes', dibujarMensajes)
     socket.on('usuarios-activos', dibujarUsuarios);
 
     socket.on('mensaje-privado', ()=>{
@@ -65,13 +63,14 @@ const conectarSocket = async()=>{
     })
 }
 
+//funcion para mostrar los usuarios en el html
 const dibujarUsuarios = (usuarios = [])=>{
     let usersHtml = '';
     usuarios.forEach(({nombre, uid}) =>{
         usersHtml += `
         <li> 
             <p>
-                <h5 class="text-succes"> ${nombre} </h5>
+                <h5 class="text-success"> ${nombre} </h5>
                 <span class="fs-6 text-muted"> ${uid}</span> 
             </p>
         </li>
@@ -79,6 +78,23 @@ const dibujarUsuarios = (usuarios = [])=>{
         `
     });
     ulUsuarios.innerHTML = usersHtml;
+}
+
+//funcion para mostrar los mensajes en el html
+const dibujarMensajes = (mensajes = [])=>{
+    let mensajesHtml = '';
+    mensajes.forEach(({nombre, mensaje}) =>{
+        mensajesHtml += `
+        <li> 
+            <p>
+                <span class="text-primary"> ${nombre}:  </span>
+                <span> ${mensaje}</span> 
+            </p>
+        </li>
+        
+        `
+    });
+    ulMensaje.innerHTML = mensajesHtml;
 }
 
 //para los mensajes a mandar
