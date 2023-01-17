@@ -55,8 +55,8 @@ const conectarSocket = async()=>{
     socket.on('disconnect', ()=>{
         console.log('socket offline')
     })
-    socket.on('recibir-mensaje', ()=>{
-        //todo
+    socket.on('recibir-mensajes', (payload)=>{
+        console.log(payload)
     })
     socket.on('usuarios-activos', dibujarUsuarios);
 
@@ -80,6 +80,23 @@ const dibujarUsuarios = (usuarios = [])=>{
     });
     ulUsuarios.innerHTML = usersHtml;
 }
+
+//para los mensajes a mandar
+txtMensajes.addEventListener('keyup', ({keyCode})=>{  //el keycode 13 es el de enter, trabajaremos con eso
+    const mensaje = txtMensajes.value;
+    const uid = txtUid.value;
+
+    if(keyCode !== 13){return;}
+    if(keyCode.length === 0){return;}
+
+    //emitimos el mensaje para que nuestro backend lo reciba
+    socket.emit('enviar-mensaje', {mensaje, uid});
+    //limpiamos para que cuando se mande el mensaje desaparezca del escritor
+    txtMensajes.value = '';
+})
+
+
+
 
 const main = async()=>{
 

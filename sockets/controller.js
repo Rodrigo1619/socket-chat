@@ -26,6 +26,11 @@ const socketController = async(socket = new Socket(), io)=>{
         chatMensajes.desconectarUsuario(usuario.id);
         io.emit('usuarios-activos', chatMensajes.usuariosArr ); //emitimos a todos que ese usuario se desconecto
     })
+    socket.on('enviar-mensaje', ({uid, mensaje})=>{
+        chatMensajes.enviarMensaje(usuario.id, usuario.nombre, mensaje);
+        //queremos mandar el mensaje a todos los usuarios, entonces emitimos el mensaje
+        io.emit('recibir-mensajes', chatMensajes.ultimos10)
+    })
 
 
 }
